@@ -30,8 +30,6 @@ def send_event(event_type: str):
         "tool_name": event.get("tool_name", None),
         "tool_input": event.get("tool_input", None),
         "timestamp": event.get("timestamp", None),
-        "input_tokens": event.get("input_tokens", None),
-        "output_tokens": event.get("output_tokens", None),
     }).encode()
 
     req = urllib.request.Request(

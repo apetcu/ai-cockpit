@@ -11,6 +11,7 @@ export interface TelemetryEvent {
 
 export interface Session {
   session_id: string;
+  project: string | null;
   first_event_at: string;
   last_event_at: string;
   event_count: number;

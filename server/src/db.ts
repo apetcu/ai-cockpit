@@ -76,6 +76,7 @@ export const getSessions = () => {
     .prepare(`
       SELECT
         session_id,
+        MAX(project) as project,
         MIN(timestamp) as first_event_at,
         MAX(timestamp) as last_event_at,
         COUNT(*) as event_count,

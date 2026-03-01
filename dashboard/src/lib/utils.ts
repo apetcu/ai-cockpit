@@ -65,13 +65,13 @@ export function sessionColor(sessionId: string): string {
 }
 
 export const TOOL_COLORS: Record<string, string> = {
-  Bash: "var(--color-tool-bash)",
-  Read: "var(--color-tool-read)",
-  Write: "var(--color-tool-write)",
-  Edit: "var(--color-tool-edit)",
-  Grep: "var(--color-tool-grep)",
-  Glob: "var(--color-tool-glob)",
-  Agent: "var(--color-tool-agent)",
+  Bash: "#008B8B",
+  Read: "#64748b",
+  Write: "#b8860b",
+  Edit: "#7c3aed",
+  Grep: "#475569",
+  Glob: "#475569",
+  Agent: "rgba(255, 255, 255, 0.7)",
 };
 
 export const TOOL_COLORS_CLASS: Record<string, string> = {

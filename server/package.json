@@ -1,0 +1,13 @@
+{
+  "name": "ai-cockpit-server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "seed": "bun run src/seed.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.14"
+  }
+}

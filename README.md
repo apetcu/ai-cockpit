@@ -1,5 +1,7 @@
 # AI Cockpit
 
+<img src="!/ai_cockpit.gif" alt="AI Cockpit" width="100%">
+
 Real-time observability dashboard for Claude Code agent sessions.
 
 ```

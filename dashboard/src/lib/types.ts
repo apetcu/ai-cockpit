@@ -2,6 +2,7 @@ export interface TelemetryEvent {
   id: number;
   event_type: string;
   session_id: string;
+  project: string | null;
   tool_name: string | null;
   tool_input: string | null;
   timestamp: string;

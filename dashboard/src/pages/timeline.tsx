@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/glass-card";
@@ -10,7 +8,6 @@ import {
   truncateSessionId,
   sessionColor,
   TOOL_COLORS,
-  cn,
 } from "@/lib/utils";
 import type { TelemetryEvent, Session } from "@/lib/types";
 
@@ -215,9 +212,7 @@ export default function TimelinePage() {
                           height: 16,
                           borderRadius: 3,
                           backgroundColor: isAgent ? "transparent" : color,
-                          border: isAgent
-                            ? `1px solid ${color}`
-                            : `1px solid ${color}`,
+                          border: `1px solid ${color}`,
                           boxShadow: `0 0 8px ${color}40`,
                         }}
                         onMouseEnter={(e) => {

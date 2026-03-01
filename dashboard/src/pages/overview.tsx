@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { StatCard } from "@/components/stat-card";
 import { EventFeed } from "@/components/event-feed";
@@ -57,10 +55,8 @@ export default function OverviewPage() {
         />
       </div>
 
-      <div className="grid grid-cols-[1fr_400px] gap-4">
-        <EventFeed />
-        <ToolBreakdownChart />
-      </div>
+      <EventFeed />
+      <ToolBreakdownChart />
     </div>
   );
 }

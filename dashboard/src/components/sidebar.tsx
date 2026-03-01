@@ -1,7 +1,4 @@
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -44,7 +41,7 @@ const NAV_ITEMS = [
 ];
 
 export function Sidebar({ wsConnected }: { wsConnected: boolean }) {
-  const pathname = usePathname();
+  const { pathname } = useLocation();
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-56 flex flex-col border-r border-white/[0.06] bg-[#0A0A0A]/80 backdrop-blur-xl z-40">
@@ -67,7 +64,7 @@ export function Sidebar({ wsConnected }: { wsConnected: boolean }) {
           return (
             <Link
               key={item.href}
-              href={item.href}
+              to={item.href}
               className={cn(
                 "flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all duration-150",
                 active

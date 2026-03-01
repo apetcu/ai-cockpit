@@ -19,9 +19,14 @@ def send_event(event_type: str):
     raw = sys.stdin.read()
     event = json.loads(raw) if raw.strip() else {}
 
+    # Derive project name from cwd (last directory component)
+    cwd = event.get("cwd", None)
+    project = cwd.rsplit("/", 1)[-1] if cwd else None
+
     payload = json.dumps({
         "event_type": event_type,
         "session_id": event.get("session_id", "unknown"),
+        "project": project,
         "tool_name": event.get("tool_name", None),
         "tool_input": event.get("tool_input", None),
         "timestamp": event.get("timestamp", None),

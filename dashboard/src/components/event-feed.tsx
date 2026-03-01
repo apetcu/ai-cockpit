@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GlassCard } from "./glass-card";
 import { subscribe } from "./dashboard-shell";
@@ -73,8 +71,9 @@ export function EventFeed() {
       </div>
 
       {/* Table header */}
-      <div className="grid grid-cols-[80px_120px_120px_1fr] gap-2 px-4 py-2 border-b border-white/[0.06] text-[10px] uppercase tracking-wider text-foreground-subtle font-medium">
+      <div className="grid grid-cols-[80px_minmax(80px,1fr)_120px_120px_100px] gap-2 px-4 py-2 border-b border-white/[0.06] text-[10px] uppercase tracking-wider text-foreground-subtle font-medium">
         <span>Time</span>
+        <span>Project</span>
         <span>Session</span>
         <span>Event</span>
         <span>Tool</span>
@@ -92,10 +91,13 @@ export function EventFeed() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               transition={{ duration: 0.2 }}
-              className="grid grid-cols-[80px_120px_120px_1fr] gap-2 px-4 py-1.5 border-b border-white/[0.03] hover:bg-white/[0.03] transition-colors text-xs items-center"
+              className="grid grid-cols-[80px_minmax(80px,1fr)_120px_120px_100px] gap-2 px-4 py-1.5 border-b border-white/[0.03] hover:bg-white/[0.03] transition-colors text-xs items-center"
             >
               <span className="text-foreground-subtle font-mono">
                 {formatTimestamp(event.timestamp)}
+              </span>
+              <span className="text-foreground-muted truncate" title={event.project ?? undefined}>
+                {event.project ?? "—"}
               </span>
               <span
                 className="font-mono text-[10px] px-1.5 py-0.5 rounded w-fit"

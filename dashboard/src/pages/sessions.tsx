@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/glass-card";
@@ -11,7 +9,6 @@ import {
   timeAgo,
   truncateSessionId,
   sessionColor,
-  cn,
 } from "@/lib/utils";
 import type { Session } from "@/lib/types";
 

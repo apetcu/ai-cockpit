@@ -18,6 +18,7 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     event_type TEXT NOT NULL,
     session_id TEXT NOT NULL,
+    project TEXT,
     tool_name TEXT,
     tool_input TEXT,
     timestamp TEXT NOT NULL,
@@ -26,6 +27,13 @@ db.exec(`
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   )
 `);
+// Migrate: add project column if missing
+try {
+  db.exec("ALTER TABLE events ADD COLUMN project TEXT");
+} catch {
+  // Column already exists
+}
+
 db.exec("CREATE INDEX IF NOT EXISTS idx_events_session_id ON events(session_id)");
 db.exec("CREATE INDEX IF NOT EXISTS idx_events_event_type ON events(event_type)");
 db.exec("CREATE INDEX IF NOT EXISTS idx_events_timestamp ON events(timestamp)");
@@ -33,8 +41,8 @@ db.exec("CREATE INDEX IF NOT EXISTS idx_events_timestamp ON events(timestamp)");
 export default db;
 
 export const insertEvent = db.prepare(`
-  INSERT INTO events (event_type, session_id, tool_name, tool_input, timestamp, input_tokens, output_tokens)
-  VALUES ($event_type, $session_id, $tool_name, $tool_input, $timestamp, $input_tokens, $output_tokens)
+  INSERT INTO events (event_type, session_id, project, tool_name, tool_input, timestamp, input_tokens, output_tokens)
+  VALUES ($event_type, $session_id, $project, $tool_name, $tool_input, $timestamp, $input_tokens, $output_tokens)
 `);
 
 export const getEvents = (filters: {

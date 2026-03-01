@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef, useCallback, useState } from "react";
 import { WS_URL } from "./utils";
 import type { TelemetryEvent } from "./types";

@@ -50,6 +50,7 @@ const server = Bun.serve({
         const event = {
           $event_type: body.event_type || "unknown",
           $session_id: body.session_id || "unknown",
+          $project: body.project || null,
           $tool_name: body.tool_name || null,
           $tool_input: body.tool_input ? JSON.stringify(body.tool_input) : null,
           $timestamp: body.timestamp || new Date().toISOString(),
@@ -62,6 +63,7 @@ const server = Bun.serve({
         const stored = {
           event_type: event.$event_type,
           session_id: event.$session_id,
+          project: event.$project,
           tool_name: event.$tool_name,
           tool_input: event.$tool_input,
           timestamp: event.$timestamp,

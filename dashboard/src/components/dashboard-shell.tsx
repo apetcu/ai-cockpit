@@ -1,5 +1,3 @@
-"use client";
-
 import { useCallback, useState } from "react";
 import { Sidebar } from "./sidebar";
 import { useWebSocket } from "@/lib/useWebSocket";

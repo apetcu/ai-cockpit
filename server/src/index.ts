@@ -53,9 +53,10 @@ const server = Bun.serve({
           $project: body.project || null,
           $tool_name: body.tool_name || null,
           $tool_input: body.tool_input ? JSON.stringify(body.tool_input) : null,
+          $model: body.model || null,
+          $agent_type: body.agent_type || null,
+          $agent_id: body.agent_id || null,
           $timestamp: body.timestamp || new Date().toISOString(),
-          $input_tokens: body.input_tokens ?? null,
-          $output_tokens: body.output_tokens ?? null,
         };
 
         insertEvent.run(event);
@@ -66,9 +67,10 @@ const server = Bun.serve({
           project: event.$project,
           tool_name: event.$tool_name,
           tool_input: event.$tool_input,
+          model: event.$model,
+          agent_type: event.$agent_type,
+          agent_id: event.$agent_id,
           timestamp: event.$timestamp,
-          input_tokens: event.$input_tokens,
-          output_tokens: event.$output_tokens,
         };
 
         // Broadcast to all WebSocket clients

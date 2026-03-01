@@ -23,18 +23,24 @@ def send_event(event_type: str):
     cwd = event.get("cwd", None)
     project = cwd.rsplit("/", 1)[-1] if cwd else None
 
-    payload = json.dumps({
+    payload = {
         "event_type": event_type,
         "session_id": event.get("session_id", "unknown"),
         "project": project,
         "tool_name": event.get("tool_name", None),
         "tool_input": event.get("tool_input", None),
         "timestamp": event.get("timestamp", None),
-    }).encode()
+        # SessionStart fields
+        "model": event.get("model", None),
+        # SubagentStart/Stop fields
+        "agent_type": event.get("agent_type", None),
+        "agent_id": event.get("agent_id", None),
+    }
 
+    data = json.dumps(payload).encode()
     req = urllib.request.Request(
         API_URL,
-        data=payload,
+        data=data,
         headers={"Content-Type": "application/json"},
         method="POST",
     )

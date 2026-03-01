@@ -1,12 +1,25 @@
 {
   "hooks": {
-    "PostToolUse": [
+    "SessionStart": [
       {
         "matcher": "*",
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py post_tool_use"
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py session_start",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py session_end",
+            "timeout": 5000
           }
         ]
       }
@@ -17,7 +30,20 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py pre_tool_use"
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py pre_tool_use",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py post_tool_use",
+            "timeout": 5000
           }
         ]
       }
@@ -28,7 +54,20 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py stop"
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py stop",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py subagent_start",
+            "timeout": 5000
           }
         ]
       }
@@ -39,7 +78,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py subagent_stop"
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/telemetry.py subagent_stop",
+            "timeout": 5000
           }
         ]
       }

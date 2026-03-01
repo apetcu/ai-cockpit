@@ -93,3 +93,11 @@ export const EVENT_TYPE_STYLES: Record<string, string> = {
   subagent_start: "bg-purple-500/15 text-purple-400 border-purple-500/25",
   subagent_stop: "bg-purple-500/10 text-purple-300 border-purple-500/20",
 };
+
+export function formatModel(model: string | null): string {
+  if (!model) return "—";
+  if (model.includes("opus")) return "Opus";
+  if (model.includes("sonnet")) return "Sonnet";
+  if (model.includes("haiku")) return "Haiku";
+  return model;
+}

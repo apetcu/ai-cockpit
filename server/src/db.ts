@@ -21,17 +21,23 @@ db.exec(`
     project TEXT,
     tool_name TEXT,
     tool_input TEXT,
+    model TEXT,
+    agent_type TEXT,
+    agent_id TEXT,
     timestamp TEXT NOT NULL,
-    input_tokens INTEGER,
-    output_tokens INTEGER,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   )
 `);
-// Migrate: add project column if missing
-try {
-  db.exec("ALTER TABLE events ADD COLUMN project TEXT");
-} catch {
-  // Column already exists
+
+// Migrations for existing DBs
+const migrations = [
+  "ALTER TABLE events ADD COLUMN project TEXT",
+  "ALTER TABLE events ADD COLUMN model TEXT",
+  "ALTER TABLE events ADD COLUMN agent_type TEXT",
+  "ALTER TABLE events ADD COLUMN agent_id TEXT",
+];
+for (const sql of migrations) {
+  try { db.exec(sql); } catch { /* column already exists */ }
 }
 
 db.exec("CREATE INDEX IF NOT EXISTS idx_events_session_id ON events(session_id)");
@@ -41,8 +47,8 @@ db.exec("CREATE INDEX IF NOT EXISTS idx_events_timestamp ON events(timestamp)");
 export default db;
 
 export const insertEvent = db.prepare(`
-  INSERT INTO events (event_type, session_id, project, tool_name, tool_input, timestamp, input_tokens, output_tokens)
-  VALUES ($event_type, $session_id, $project, $tool_name, $tool_input, $timestamp, $input_tokens, $output_tokens)
+  INSERT INTO events (event_type, session_id, project, tool_name, tool_input, model, agent_type, agent_id, timestamp)
+  VALUES ($event_type, $session_id, $project, $tool_name, $tool_input, $model, $agent_type, $agent_id, $timestamp)
 `);
 
 export const getEvents = (filters: {
@@ -77,10 +83,12 @@ export const getSessions = () => {
       SELECT
         session_id,
         MAX(project) as project,
+        MAX(model) as model,
         MIN(timestamp) as first_event_at,
         MAX(timestamp) as last_event_at,
         COUNT(*) as event_count,
-        COUNT(CASE WHEN event_type = 'post_tool_use' THEN 1 END) as tool_calls_count
+        COUNT(CASE WHEN event_type = 'post_tool_use' THEN 1 END) as tool_calls_count,
+        COUNT(CASE WHEN event_type IN ('subagent_start', 'subagent_stop') THEN 1 END) as subagent_count
       FROM events
       GROUP BY session_id
       ORDER BY MAX(timestamp) DESC
@@ -103,7 +111,8 @@ export const getStats = () => {
         END) as active_sessions,
         COUNT(*) as total_events,
         COUNT(CASE WHEN event_type = 'post_tool_use' THEN 1 END) as tool_calls,
-        COUNT(DISTINCT CASE WHEN tool_name IS NOT NULL AND tool_name != '' THEN tool_name END) as unique_tools
+        COUNT(DISTINCT CASE WHEN tool_name IS NOT NULL AND tool_name != '' THEN tool_name END) as unique_tools,
+        COUNT(DISTINCT project) as unique_projects
       FROM events
     `)
     .get();

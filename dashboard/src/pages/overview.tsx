@@ -29,7 +29,7 @@ export default function OverviewPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-5 gap-4">
         <StatCard
           label="Active Sessions"
           value={stats?.active_sessions ?? "—"}
@@ -38,20 +38,25 @@ export default function OverviewPage() {
           index={0}
         />
         <StatCard
+          label="Projects"
+          value={stats?.unique_projects ?? "—"}
+          index={1}
+        />
+        <StatCard
           label="Total Events"
           value={stats?.total_events ?? "—"}
-          index={1}
+          index={2}
         />
         <StatCard
           label="Tool Calls"
           value={stats?.tool_calls ?? "—"}
           subtitle="post_tool_use"
-          index={2}
+          index={3}
         />
         <StatCard
           label="Unique Tools"
           value={stats?.unique_tools ?? "—"}
-          index={3}
+          index={4}
         />
       </div>
 

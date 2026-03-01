@@ -9,6 +9,7 @@ import {
   timeAgo,
   truncateSessionId,
   sessionColor,
+  formatModel,
 } from "@/lib/utils";
 import type { Session } from "@/lib/types";
 
@@ -45,6 +46,7 @@ export default function SessionsPage() {
               <tr className="border-b border-white/[0.06]">
                 <th className="text-left px-4 py-3 text-xs font-medium text-foreground-muted uppercase tracking-wider">Project</th>
                 <th className="text-left px-4 py-3 text-xs font-medium text-foreground-muted uppercase tracking-wider">Session</th>
+                <th className="text-left px-4 py-3 text-xs font-medium text-foreground-muted uppercase tracking-wider">Model</th>
                 <th className="text-left px-4 py-3 text-xs font-medium text-foreground-muted uppercase tracking-wider">Started</th>
                 <th className="text-left px-4 py-3 text-xs font-medium text-foreground-muted uppercase tracking-wider">Last Activity</th>
                 <th className="text-left px-4 py-3 text-xs font-medium text-foreground-muted uppercase tracking-wider">Duration</th>
@@ -83,6 +85,9 @@ export default function SessionsPage() {
                       >
                         {truncateSessionId(session.session_id)}
                       </span>
+                    </td>
+                    <td className="px-4 py-3 text-foreground-muted text-xs">
+                      {formatModel(session.model)}
                     </td>
                     <td className="px-4 py-3 text-foreground-muted font-mono text-xs">
                       {formatTimestamp(session.first_event_at)}

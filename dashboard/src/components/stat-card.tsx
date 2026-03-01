@@ -15,8 +15,9 @@ export function StatCard({ label, value, subtitle, pulse, index = 0 }: StatCardP
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      className="h-full"
     >
-      <GlassCard className="p-4">
+      <GlassCard className="p-4 h-full">
         <div className="text-xs text-foreground-muted uppercase tracking-wider mb-2">
           {label}
         </div>
